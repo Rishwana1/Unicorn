@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+void initializeMatrix(int vertices, int matrix[vertices][vertices]) {
+    int i, j;
+    for (i = 0; i < vertices; i++) {
+        for (j = 0; j < vertices; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+}
+
+void addEdge(int source, int destination, int matrix[][source]) {
+    matrix[source][destination] = 1;
+    matrix[destination][source] = 1;
+}
+
+void printMatrix(int vertices, int matrix[vertices][vertices]) {
+    int i, j;
+    for (i = 0; i < vertices; i++) {
+        printf("Vertex %d: ", i);
+        for (j = 0; j < vertices; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int vertices, edges, i, source, destination;
+    printf("Enter the number of vertices: ");
+    scanf("%d", &vertices);
+   
+    if(vertices <= 0) {
+        printf("Sorry!! Size cannot be negative or zero.\n");
+        return 0;
+    }
+   
+    int amatrix[vertices][vertices];
+    initializeMatrix(vertices, amatrix);
+   
+    printf("Enter the number of edges: ");
+    scanf("%d", &edges);
+   
+    if(edges <= 0) {
+        printf("Sorry!! Size cannot be negative or zero.\n");
+        return 0;
+    }
+   
+    printf("Number of vertices are %d\n", vertices);
+    printf("Number of edges are %d\n", edges);
+   
+    for(i = 0; i < edges; i++) {
+        printf("Enter the source vertex: ");
+        scanf("%d", &source);
+        printf("Enter the end vertex: ");
+        scanf("%d", &destination);
+       
+        if(source < 0 || source >= vertices || destination < 0 || destination >= vertices) {
+            printf("Number exceeds the range.\n");
+            continue;
+        }
+       
+        addEdge(source, destination, amatrix);
+        printf("Edge created(%d, %d)\n", source, destination);
+    }
+   
+    printf("The adjacency matrix is:\n");
+    printMatrix(vertices, amatrix);
+   
+    return 0;
+}
+
